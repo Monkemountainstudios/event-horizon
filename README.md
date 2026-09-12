@@ -1,5 +1,10 @@
 # Event Horizon
 
+<p align="center">
+  <img src="Assets/ChatGPT%20Image%2012%20sep.%202026%2021_03_40.png" alt="Event Horizon icon" width="420">
+</p>
+
+
 **Monke Mountain Event Horizon** is an experimental generative audio instrument built with JUCE. Feed it notes, phrases, speech, pads, drums, or complete gestures and it turns the performer’s recent past into an orbiting musical ecology.
 
 Material begins as recognisable call-and-response, accelerates and breaks apart, then accumulates as a long-lived plasma of interwoven grains. Eventually it crosses the horizon and emits delayed, outward-moving Hawking radiation through a separate shimmer field.
