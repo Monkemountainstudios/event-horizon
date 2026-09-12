@@ -1,6 +1,6 @@
 # Event Horizon
 
-Event Horizon is an experimental generative audio instrument built with JUCE. Feed it notes, phrases, speech, pads, drums, or complete gestures and it turns the performer’s recent past into an orbiting musical ecology.
+**Monke Mountain Event Horizon** is an experimental generative audio instrument built with JUCE. Feed it notes, phrases, speech, pads, drums, or complete gestures and it turns the performer’s recent past into an orbiting musical ecology.
 
 Material begins as recognisable call-and-response, accelerates and breaks apart, then accumulates as a long-lived plasma of interwoven grains. Eventually it crosses the horizon and emits delayed, outward-moving Hawking radiation through a separate shimmer field.
 
@@ -40,21 +40,21 @@ Unsigned public-test builds are attached to each GitHub pre-release:
 
 ### Windows installation
 
-Copy `Event Horizon.vst3` to:
+Copy `Monke Mountain Event Horizon.vst3` to:
 
 ```text
 C:\Program Files\Common Files\VST3
 ```
 
-The standalone `Event Horizon.exe` may be placed anywhere. Because these test builds are not commercially code-signed, Windows may identify the publisher as unknown.
+The standalone `Monke Mountain Event Horizon.exe` may be placed anywhere. Because these test builds are not commercially code-signed, Windows may identify the publisher as unknown.
 
 ### macOS installation
 
 Copy the formats you want to use:
 
 ```text
-Event Horizon.vst3      → ~/Library/Audio/Plug-Ins/VST3/
-Event Horizon.component → ~/Library/Audio/Plug-Ins/Components/
+Monke Mountain Event Horizon.vst3 → ~/Library/Audio/Plug-Ins/VST3/
+Monke Mountain Event Horizon.component → ~/Library/Audio/Plug-Ins/Components/
 ```
 
 The standalone `.app` may be placed in `/Applications`. Public-test builds are ad-hoc signed but not Apple-notarized, so macOS may require the user to approve first launch in the normal system interface.
