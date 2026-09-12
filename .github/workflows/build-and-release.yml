@@ -23,7 +23,6 @@ jobs:
             os: macos-latest
             artifact: Event-Horizon-macOS-Universal
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v4
 
@@ -46,20 +45,20 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force package | Out-Null
-          Copy-Item "build/EventHorizon_artefacts/Release/Standalone/Event Horizon.exe" package/
-          Copy-Item "build/EventHorizon_artefacts/Release/VST3/Event Horizon.vst3" package/ -Recurse
+          Copy-Item "build/EventHorizon_artefacts/Release/Standalone/Monke Mountain Event Horizon.exe" package/
+          Copy-Item "build/EventHorizon_artefacts/Release/VST3/Monke Mountain Event Horizon.vst3" package/ -Recurse
           Compress-Archive -Path package/* -DestinationPath "${{ matrix.artifact }}.zip"
 
       - name: Ad-hoc sign and package macOS
         if: runner.os == 'macOS'
         run: |
-          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/Standalone/Event Horizon.app"
-          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/VST3/Event Horizon.vst3"
-          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/AU/Event Horizon.component"
+          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/Standalone/Monke Mountain Event Horizon.app"
+          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/VST3/Monke Mountain Event Horizon.vst3"
+          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/AU/Monke Mountain Event Horizon.component"
           mkdir package
-          cp -R "build/EventHorizon_artefacts/Release/Standalone/Event Horizon.app" package/
-          cp -R "build/EventHorizon_artefacts/Release/VST3/Event Horizon.vst3" package/
-          cp -R "build/EventHorizon_artefacts/Release/AU/Event Horizon.component" package/
+          cp -R "build/EventHorizon_artefacts/Release/Standalone/Monke Mountain Event Horizon.app" package/
+          cp -R "build/EventHorizon_artefacts/Release/VST3/Monke Mountain Event Horizon.vst3" package/
+          cp -R "build/EventHorizon_artefacts/Release/AU/Monke Mountain Event Horizon.component" package/
           ditto -c -k --sequesterRsrc --keepParent package "${{ matrix.artifact }}.zip"
 
       - uses: actions/upload-artifact@v4
