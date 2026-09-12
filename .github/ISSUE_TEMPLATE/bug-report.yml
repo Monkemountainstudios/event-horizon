@@ -1,0 +1,43 @@
+name: Test report
+description: Report a repeatable Event Horizon problem
+title: "[Test] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping test Event Horizon. Please avoid uploading material you do not have permission to share.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows x64
+        - macOS Apple Silicon
+        - macOS Intel
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: Host and version
+      placeholder: Cubase 13, Ableton Live 12, Standalone, etc.
+    validations:
+      required: true
+  - type: input
+    id: audio
+    attributes:
+      label: Audio settings
+      placeholder: 48 kHz, 128 samples
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: What happened?
+      description: Include the shortest repeatable sequence and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: CPU symptoms, screenshots, short recordings, or other useful details.
