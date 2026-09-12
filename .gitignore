@@ -1,0 +1,8 @@
+/build/
+/build-*/
+/.vs/
+*.user
+*.suo
+*.zip
+.DS_Store
+/package/
