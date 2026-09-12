@@ -1,0 +1,84 @@
+name: Build and release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows x64
+            os: windows-latest
+            artifact: Event-Horizon-Windows-x64
+          - name: macOS Universal
+            os: macos-latest
+            artifact: Event-Horizon-macOS-Universal
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Windows
+        if: runner.os == 'Windows'
+        run: cmake -S . -B build -A x64
+
+      - name: Configure macOS Universal
+        if: runner.os == 'macOS'
+        run: >-
+          cmake -S . -B build -G Xcode
+          -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+          -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED=NO
+
+      - name: Build
+        run: cmake --build build --config Release --parallel 4
+
+      - name: Package Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force package | Out-Null
+          Copy-Item "build/EventHorizon_artefacts/Release/Standalone/Event Horizon.exe" package/
+          Copy-Item "build/EventHorizon_artefacts/Release/VST3/Event Horizon.vst3" package/ -Recurse
+          Compress-Archive -Path package/* -DestinationPath "${{ matrix.artifact }}.zip"
+
+      - name: Ad-hoc sign and package macOS
+        if: runner.os == 'macOS'
+        run: |
+          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/Standalone/Event Horizon.app"
+          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/VST3/Event Horizon.vst3"
+          codesign --force --deep --sign - "build/EventHorizon_artefacts/Release/AU/Event Horizon.component"
+          mkdir package
+          cp -R "build/EventHorizon_artefacts/Release/Standalone/Event Horizon.app" package/
+          cp -R "build/EventHorizon_artefacts/Release/VST3/Event Horizon.vst3" package/
+          cp -R "build/EventHorizon_artefacts/Release/AU/Event Horizon.component" package/
+          ditto -c -k --sequesterRsrc --keepParent package "${{ matrix.artifact }}.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.artifact }}.zip
+
+  release:
+    name: Publish GitHub release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-files
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          prerelease: true
+          generate_release_notes: true
+          files: release-files/*.zip
