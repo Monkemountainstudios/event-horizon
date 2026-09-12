@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(EVENT_HORIZON_JUCE_PATH "" CACHE PATH "Optional path to a local JUCE checkout")
+
 if (EVENT_HORIZON_JUCE_PATH)
     add_subdirectory("${EVENT_HORIZON_JUCE_PATH}" "${CMAKE_BINARY_DIR}/JUCE")
 else()
@@ -29,12 +30,12 @@ juce_add_binary_data(EventHorizonAssets
 
 juce_add_plugin(EventHorizon
     VERSION ${PROJECT_VERSION}
-    COMPANY_NAME "Event Horizon"
-    BUNDLE_ID "com.eventhorizon.prototype"
+    COMPANY_NAME "Monke Mountain Studios"
+    BUNDLE_ID "com.monkemountainstudios.eventhorizon"
     PLUGIN_MANUFACTURER_CODE EvHr
     PLUGIN_CODE EvH1
     FORMATS ${EVENT_HORIZON_FORMATS}
-    PRODUCT_NAME "Event Horizon"
+    PRODUCT_NAME "Monke Mountain Event Horizon"
     IS_SYNTH FALSE
     NEEDS_MIDI_INPUT FALSE
     NEEDS_MIDI_OUTPUT FALSE
@@ -55,13 +56,14 @@ target_compile_definitions(EventHorizon PUBLIC
     JUCE_USE_CURL=0
     JUCE_VST3_CAN_REPLACE_VST2=0)
 
-target_link_libraries(EventHorizon PRIVATE
-    EventHorizonAssets
-    juce::juce_audio_utils
-    juce::juce_dsp
+target_link_libraries(EventHorizon
+    PRIVATE
+        EventHorizonAssets
+        juce::juce_audio_utils
+        juce::juce_dsp
     PUBLIC
-    juce::juce_recommended_config_flags
-    juce::juce_recommended_lto_flags
-    juce::juce_recommended_warning_flags)
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_lto_flags
+        juce::juce_recommended_warning_flags)
 
 juce_generate_juce_header(EventHorizon)
