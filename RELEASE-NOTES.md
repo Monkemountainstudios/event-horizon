@@ -1,3 +1,9 @@
+# Event Horizon 0.9.16 — Icon Fix
+
+- Ensures the Event Horizon artwork is embedded in Windows executables by using
+  an absolute source path for JUCE's generated icon resources.
+- Refreshes the Windows x64 and universal macOS test packages.
+
 # Event Horizon 0.9.14 — Public Test 1
 
 This is the first public testing build of Event Horizon, an experimental instrument for playing with your own disappearing past.
